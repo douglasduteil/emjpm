@@ -17,6 +17,8 @@ Register socialgouv/emjpm base image:
 
 Register postgres image:
   <<: *prepare_stage
+  tags:
+    - test-tool
   variables:
     CONTEXT: ./docker/postgres
     DOCKER_BUILD_ARGS: ""
