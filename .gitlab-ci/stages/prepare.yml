@@ -11,6 +11,20 @@
 #
 #
 
+Workspace install:
+  <<: *prepare_stage
+  cache:
+    key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+    paths:
+      - $CI_PROJECT_DIR/.yarn
+  artifacts:
+    paths:
+      - node_modules
+      - packages/*/node_modules
+  script:
+    - yarn config set cache-folder $CI_PROJECT_DIR/.yarn
+    - yarn --frozen-lockfile
+
 .prepare_base_image_scope: &prepare_base_image_scope
   changes:
     - packages/**
