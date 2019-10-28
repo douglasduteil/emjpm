@@ -13,6 +13,7 @@
 
 Workspace install:
   <<: *prepare_stage
+  image: node:10
   cache:
     key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
     paths:
