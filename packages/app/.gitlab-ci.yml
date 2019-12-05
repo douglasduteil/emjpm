@@ -81,7 +81,6 @@ Build @emjpm/app:
     expire_in: 30 mins
     paths:
       - packages/app/.next
-      - packages/app/out
 
 #
 
