@@ -4,6 +4,7 @@
     - $CI_PROJECT_DIR/.yarn
     - node_modules
     - packages/graphql-server/node_modules
+    - packages/graphql-server/dist
   policy: pull
 
 #
@@ -11,12 +12,12 @@
 Install graphql-server:
   extends: .prepare_stage
   image: node:12-alpine
-  rules:
-    - changes:
-        - packages/graphql-server/.gitlab-ci.yml
-        - packages/graphql-server/package.json
-        - yarn.lock
-      when: always
+  # rules:
+  #   - changes:
+  #       - packages/graphql-server/.gitlab-ci.yml
+  #       - packages/graphql-server/package.json
+  #       - yarn.lock
+  #     when: always
   cache:
     <<: *graphql_cache
     policy: pull-push
@@ -25,17 +26,29 @@ Install graphql-server:
   script:
     - yarn config set cache-folder $CI_PROJECT_DIR/.yarn
     - yarn --frozen-lockfile
-  artifacts:
-    expire_in: 30 mins
-    paths:
-      - node_modules
-      - packages/knex/node_modules
+  # artifacts:
+  #   expire_in: 30 mins
+  #   paths:
+  #     - node_modules
+  #     - packages/graphql-server/node_modules
+  #     - packages/graphql-server/dist
 
 #
 
 Lint @emjpm/knex:
   stage: "Code Quality"
-  dependencies:
+  needs:
+    - Install graphql-server
+  image: node:12-alpine
+  dependencies: []
+  cache:
+    <<: *graphql_cache
+  script:
+    - yarn workspace @emjpm/graphql-server lint
+
+Build @emjpm/knex:
+  stage: "Code Quality"
+  needs:
     - Install graphql-server
   image: node:12-alpine
   dependencies: []

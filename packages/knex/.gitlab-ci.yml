@@ -11,12 +11,12 @@
 Install knex:
   extends: .prepare_stage
   image: node:12-alpine
-  rules:
-    - changes:
-        - packages/knex/.gitlab-ci.yml
-        - packages/knex/package.json
-        - yarn.lock
-      when: always
+  # rules:
+  #   - changes:
+  #       - packages/knex/.gitlab-ci.yml
+  #       - packages/knex/package.json
+  #       - yarn.lock
+  #     when: always
   cache:
     <<: *knex_cache
     policy: pull-push
@@ -25,17 +25,17 @@ Install knex:
   script:
     - yarn config set cache-folder $CI_PROJECT_DIR/.yarn
     - yarn --frozen-lockfile
-  artifacts:
-    expire_in: 30 mins
-    paths:
-      - node_modules
-      - packages/knex/node_modules
+  # artifacts:
+  #   expire_in: 30 mins
+  #   paths:
+  #     - node_modules
+  #     - packages/knex/node_modules
 
 #
 
 Lint @emjpm/knex:
   stage: "Code Quality"
-  dependencies:
+  needs:
     - Install knex
   image: node:12-alpine
   dependencies: []
@@ -46,8 +46,10 @@ Lint @emjpm/knex:
 
 Test @emjpm/knex:
   stage: "Code Quality"
-  dependencies: []
+  needs:
+    - Install knex
   image: node:12-alpine
+  dependencies: []
   cache:
     <<: *knex_cache
   services:
