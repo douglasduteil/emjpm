@@ -26,3 +26,10 @@ stages:
 - "Notify Finished Deployment"
 
 #
+
+.quality_stage:
+  stage: "Code Quality"
+  dependencies: []
+  except:
+    variables:
+      - $PRODUCTION
