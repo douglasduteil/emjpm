@@ -73,7 +73,7 @@ Lint @emjpm/knex:
 Test @emjpm/knex:
   stage: "Code Quality"
   dependencies: []
-  image: postgres:10-alpine
+  image: node:12-alpine
   cache:
     <<: *knex_cache
   services:
@@ -84,12 +84,7 @@ Test @emjpm/knex:
     POSTGRES_DB: emjpm
     POSTGRES_USER: postgres
     POSTGRES_PASSWORD: test
-    PGHOST: localhost
-    DATABASE_URL: psql://postgres:test@postgres/emjpm
-  before_script:
-    - until pg_isready;
-        do echo waiting for database; sleep 1;
-      done;
+    DATABASE_URL: psql://postgres:test@localhost/emjpm
   script:
     - sh -x docker/postgres/postgres-init.sh
     - yarn workspace @emjpm/knex test
