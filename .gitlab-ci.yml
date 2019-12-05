@@ -12,6 +12,7 @@ include:
   # - /.gitlab-ci/stages/notify.yml
   # - /.gitlab-ci/stages/deploy.yml
 
+  - /packages/app/.gitlab-ci.yml
   - /packages/graphql-server/.gitlab-ci.yml
   - /packages/hasura/.gitlab-ci.yml
   - /packages/knex/.gitlab-ci.yml
