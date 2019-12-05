@@ -69,19 +69,17 @@ Test @emjpm/knex:
   stage: "Code Quality"
   dependencies:
     - Install knex
-  image: node:12-alpine
+  image: postgres:10-alpine
   needs:
     - Install knex
   cache:
     <<: *knex_cache
   allow_failure: true
   retry: 2
-  services:
-    - name: postgres:10
   variables:
     POSTGRES_USER: postgres
     POSTGRES_PASSWORD: test
-    DATABASE_URL: psql://postgres:test@localhost:5432/emjpm
+    DATABASE_URL: psql://localhost:5432/emjpm
   script:
     - sh -x docker/postgres/postgres-init.sh
     - yarn workspace @emjpm/knex test
