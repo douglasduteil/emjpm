@@ -66,8 +66,6 @@ Register graphql-server image:
   needs:
     - Install graphql-server
     - Build @emjpm/graphql-server
-  cache:
-    <<: *graphql_cache
   variables:
     CONTEXT: packages/graphql-server
     IMAGE_NAME: $CI_REGISTRY_IMAGE/graphql-server
