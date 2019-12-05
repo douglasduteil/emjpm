@@ -42,6 +42,12 @@ Install knex:
 Install graphql-server:
   <<: *prepare_stage
   image: node:12-alpine
+  rules:
+    - changes:
+        - .gitlab-ci/stages/prepare.yml
+        - packages/graphql-server/package.json
+        - yarn.lock
+      when: always
   cache:
     key: "$CI_COMMIT_REF_SLUG-graphql-server-node_modules"
     paths:
@@ -58,6 +64,8 @@ Install graphql-server:
     paths:
       - node_modules
       - packages/graphql-server/node_modules
+
+#
 
 Lint @emjpm/knex:
   stage: "Code Quality"
@@ -88,7 +96,7 @@ Test @emjpm/knex:
   before_script:
     - apk add --update --no-cache postgresql=~11
     - pg_isready -h localhost
-    - pgql --version
+    - psql --version
   script:
     - sh -x docker/postgres/postgres-init.sh
     - yarn workspace @emjpm/knex test
