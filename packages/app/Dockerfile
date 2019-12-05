@@ -11,6 +11,6 @@ RUN yarn --production --frozen-lockfile --no-cache
 
 COPY ./next.config.js /app/
 COPY ./static/ /app/static
-# COPY .next /app/.next
+COPY .next /app/.next
 
 ENTRYPOINT ["yarn", "start:build"]
