@@ -70,6 +70,8 @@ Test @emjpm/knex:
   image: postgres:10-alpine
   needs:
     - Install knex
+  services:
+    - name: postgres:10-alpine
   allow_failure: true
   retry: 2
   variables:
