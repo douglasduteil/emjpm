@@ -41,7 +41,7 @@ module.exports = {
     connection: process.env.DATABASE_URL || {
       host: "localhost",
       user: "emjpm",
-      password: "test,
+      password: "test",
       port: "5434",
       database: "emjpm"
     },

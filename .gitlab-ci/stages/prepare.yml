@@ -77,10 +77,11 @@ Test @emjpm/knex:
   allow_failure: true
   retry: 2
   services:
-    - name: $CI_REGISTRY_IMAGE/postgres:$CI_COMMIT_REF_SLUG
-      command: ["-p", "5434"]
+    - name: postgres:10
   variables:
     POSTGRES_USER: postgres
     POSTGRES_PASSWORD: test
+    DATABASE_URL: psql://postgres:test@localhost:5432/emjpm
   script:
+    - sh -x docker/postgres/postgres-init.sh
     - yarn workspace @emjpm/knex test
