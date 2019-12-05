@@ -7,7 +7,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 
 COPY package.json yarn.lock /app/
 
-RUN yarn --production --frozen-lockfile
+RUN yarn --production --frozen-lockfile --no-cache
 
 # COPY next.config.js /app/
 # COPY .next /app/.next
