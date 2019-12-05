@@ -61,6 +61,7 @@ Install graphql-server:
 Lint @emjpm/knex:
   stage: "Code Quality"
   dependencies: []
+  image: node:12-alpine
   cache:
     <<: *knex_cache
   rules:
