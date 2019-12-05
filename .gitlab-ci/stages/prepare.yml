@@ -3,9 +3,6 @@
 .prepare_stage: &prepare_stage
   stage: "Prepare"
   dependencies: []
-  except:
-    variables:
-      - $PRODUCTION
 
 #
 #
