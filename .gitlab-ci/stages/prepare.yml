@@ -41,7 +41,7 @@ Register socialgouv/emjpm base image:
   variables:
     CONTEXT: .
     DOCKER_BUILD_ARGS: >-
-      --shm-size 600M
+      --shm-size 666M
     IMAGE_NAME: $CI_REGISTRY_IMAGE
 
 Use previous socialgouv/emjpm base image:
