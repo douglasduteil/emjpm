@@ -55,6 +55,7 @@ Test @emjpm/knex:
   allow_failure: true
   retry: 2
   variables:
+    DATABASE_URL: psql://postgres:@localhost/emjpm
     PGHOST: localhost
     PGUSER: postgres
   before_script:
