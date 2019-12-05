@@ -85,6 +85,10 @@ Test @emjpm/knex:
     POSTGRES_USER: postgres
     POSTGRES_PASSWORD: test
     DATABASE_URL: psql://postgres:test@localhost/emjpm
+  before_script:
+    - apk add --update --no-cache postgresql=~10
+    - pg_isready -h localhost
+    - pgql --version
   script:
     - sh -x docker/postgres/postgres-init.sh
     - yarn workspace @emjpm/knex test
