@@ -13,18 +13,13 @@
 
 install:
   <<: *prepare_stage
-  image: node:10
+  image: node:12-alpine
   cache:
     key: "$CI_COMMIT_REF_SLUG-node_modules"
-    paths:
-      - $CI_PROJECT_DIR/.yarn
-  artifacts:
-    expire_in: 30 minutes
     paths:
       - node_modules
       - packages/*/node_modules
   script:
-    - yarn config set cache-folder $CI_PROJECT_DIR/.yarn
     - yarn --frozen-lockfile
 
 .prepare_base_image_scope: &prepare_base_image_scope
