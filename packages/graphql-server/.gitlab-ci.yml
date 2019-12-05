@@ -55,3 +55,15 @@ Build @emjpm/graphql-server:
     policy: pull-push
   script:
     - yarn workspace @emjpm/graphql-server build
+
+#
+
+Register graphql-server image:
+  extends:
+    - .base_register_stage
+    - .register_stage
+  cache:
+    <<: *graphql_cache
+  variables:
+    CONTEXT: packages/graphql-server
+    IMAGE_NAME: $CI_REGISTRY_IMAGE/graphql-server

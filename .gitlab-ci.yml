@@ -37,3 +37,10 @@ stages:
   except:
     variables:
       - $PRODUCTION
+
+.register_stage: &register_stage
+  stage: "Registration"
+  dependencies: []
+  except:
+    variables:
+      - $PRODUCTION
