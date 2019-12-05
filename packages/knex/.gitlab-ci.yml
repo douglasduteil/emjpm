@@ -53,7 +53,7 @@ Test @emjpm/knex:
   services:
     - name: postgres:10-alpine
   allow_failure: true
-  retry: 2
+  retry: 1
   variables:
     DATABASE_URL: psql://postgres:@localhost/emjpm
     PGHOST: localhost
