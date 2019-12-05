@@ -66,9 +66,6 @@ Lint @emjpm/knex:
   dependencies: []
   cache:
     <<: *knex_cache
-  except:
-    variables:
-      - $PRODUCTION
   rules:
     # - changes:
     #     - .gitlab-ci/stages/prepare.yml
