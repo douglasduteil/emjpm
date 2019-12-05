@@ -65,7 +65,7 @@ Test @emjpm/knex:
     #
     - PGHOST=localhost
     #
-    - pg_isready
+    - pg_isready -h localhost
   script:
     - sh -x docker/postgres/postgres-init.sh
     - yarn workspace @emjpm/knex test
