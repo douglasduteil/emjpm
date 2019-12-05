@@ -18,6 +18,12 @@
 Install knex:
   <<: *prepare_stage
   image: node:12-alpine
+  rules:
+    - changes:
+        - .gitlab-ci/stages/prepare.yml
+        - packages/knex/package.json
+        - yarn.lock
+      when: always
   cache:
     <<: *knex_cache
     policy: pull-push
@@ -66,12 +72,6 @@ Lint @emjpm/knex:
 
 Test @emjpm/knex:
   stage: "Code Quality"
-  rules:
-    - changes:
-        - .gitlab-ci/stages/prepare.yml
-        - packages/knex/package.json
-        - yarn.lock
-      when: on_success
   dependencies: []
   image: postgres:10-alpine
   cache:
