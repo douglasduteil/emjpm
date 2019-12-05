@@ -11,7 +11,7 @@
 #
 #
 
-install:
+Install knex:
   <<: *prepare_stage
   image: node:12-alpine
   cache:
@@ -23,12 +23,32 @@ install:
   before_script:
     - find packages -maxdepth 1 -type d -not -name knex |
         tail -n +2 | xargs -0 -I {} rm -rf {}
+    - find packages -maxdepth 1 -type d -not -name knex | tail -n +2 | xargs rm -rf
     - ls packages
     - rm -rf packages/api
     - rm -rf packages/app
     - rm -rf packages/graphql-server
-    - rm -rf packages/hasura
     # - rm -rf packages/knex
+  script:
+    - yarn config set cache-folder $CI_PROJECT_DIR/.yarn
+    - yarn --frozen-lockfile
+
+Install knex:
+  <<: *prepare_stage
+  image: node:12-alpine
+  cache:
+    key: "$CI_COMMIT_REF_SLUG-node_modules"
+    paths:
+      - $CI_PROJECT_DIR/.yarn
+      # - node_modules
+      # - packages/*/node_modules
+  before_script:
+    - find packages -maxdepth 1 -type d -not -name graphql-server | tail -n +2 | xargs rm -rf
+    - ls packages
+    - rm -rf packages/api
+    - rm -rf packages/app
+    # - rm -rf packages/graphql-server
+    - rm -rf packages/knex
   script:
     - yarn config set cache-folder $CI_PROJECT_DIR/.yarn
     - yarn --frozen-lockfile
