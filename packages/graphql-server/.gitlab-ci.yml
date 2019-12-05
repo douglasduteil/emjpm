@@ -62,6 +62,9 @@ Register graphql-server image:
   extends:
     - .base_register_stage
     - .register_stage
+  needs:
+    - Install graphql-server
+    - Build @emjpm/graphql-server
   cache:
     <<: *graphql_cache
   variables:
