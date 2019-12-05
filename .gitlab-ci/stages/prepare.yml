@@ -21,8 +21,8 @@ install:
       # - node_modules
       # - packages/*/node_modules
   before_script:
-    - find packages -maxdepth 1 -type d
-        -not -name knex -print0 | xargs -0 -I {} rm -rf {}
+    - find packages -maxdepth 1 -type d -not -name knex |
+        tail -n +2 | xargs -0 -I {} rm -rf {}
     - ls packages
     - rm -rf packages/api
     - rm -rf packages/app
