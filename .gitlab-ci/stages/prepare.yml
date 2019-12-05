@@ -21,7 +21,7 @@ install:
       # - node_modules
       # - packages/*/node_modules
   before_script:
-    - rm -rf packages
+    - rm -rf packages/{api,app,graphql-server,hasura,knex}
   script:
     - yarn config set cache-folder $CI_PROJECT_DIR/.yarn
     - yarn --frozen-lockfile
