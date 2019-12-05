@@ -86,7 +86,7 @@ Test @emjpm/knex:
     POSTGRES_PASSWORD: test
     DATABASE_URL: psql://postgres:test@localhost/emjpm
   before_script:
-    - apk add --update --no-cache postgresql=~10
+    - apk add --update --no-cache postgresql=~11
     - pg_isready -h localhost
     - pgql --version
   script:
