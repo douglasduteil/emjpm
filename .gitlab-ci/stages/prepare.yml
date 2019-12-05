@@ -78,9 +78,10 @@ Test @emjpm/knex:
     POSTGRES_DB: emjpm
     POSTGRES_USER: postgres
     POSTGRES_PASSWORD: test
+    POSTGRES_HOST: localhost
     DATABASE_URL: psql://postgres:test@postgres/emjpm
   before_script:
-    - until pg_isready -h localhost;
+    - until pg_isready;
         do echo waiting for database; sleep 1;
       done;
   script:
