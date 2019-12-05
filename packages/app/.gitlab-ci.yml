@@ -2,8 +2,6 @@
   key: "$CI_COMMIT_REF_SLUG-app-node_modules"
   paths:
     - $CI_PROJECT_DIR/.yarn
-    - node_modules
-    - packages/app/node_modules
   policy: pull
 
 #
