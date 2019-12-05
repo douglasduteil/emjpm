@@ -17,9 +17,13 @@ install:
   cache:
     key: "$CI_COMMIT_REF_SLUG-node_modules"
     paths:
-      - node_modules
-      - packages/*/node_modules
+      - $CI_PROJECT_DIR/.yarn
+      # - node_modules
+      # - packages/*/node_modules
+  before_script:
+    - rm -rf packages
   script:
+    - yarn config set cache-folder $CI_PROJECT_DIR/.yarn
     - yarn --frozen-lockfile
 
 .prepare_base_image_scope: &prepare_base_image_scope
