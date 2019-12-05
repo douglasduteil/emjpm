@@ -53,4 +53,4 @@ Build @emjpm/graphql-server:
   cache:
     <<: *graphql_cache
   script:
-    - yarn workspace @emjpm/graphql-server lint
+    - yarn workspace @emjpm/graphql-server build
