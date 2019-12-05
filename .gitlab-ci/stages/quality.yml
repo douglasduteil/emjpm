@@ -41,23 +41,7 @@ Lint @emjpm/app:
   script:
     - yarn workspace @emjpm/app lint
 
-Lint @emjpm/graphql-server:
-  <<: *quality_stage
-  <<: *master_based_stage
-  only:
-    changes:
-      - packages/graphql-server/**
-  script:
-    - yarn workspace @emjpm/graphql-server lint
 
-Lint @emjpm/knex:
-  <<: *quality_stage
-  <<: *master_based_stage
-  only:
-    changes:
-      - packages/knex/**
-  script:
-    - yarn workspace @emjpm/knex lint
 
 Lint @optional/e2e:
   <<: *quality_stage
@@ -127,19 +111,3 @@ Test @emjpm/app:
   script:
     - yarn workspace @emjpm/app test --coverage
 
-Test @emjpm/knex:
-  <<: *quality_stage
-  <<: *master_based_stage
-  only:
-    changes:
-      - packages/knex/**
-  allow_failure: true
-  services:
-    - name: $CI_REGISTRY_IMAGE/postgres:$CI_COMMIT_SHA
-      command: ["-p", "5434"]
-  variables:
-    POSTGRES_USER: postgres
-    POSTGRES_PASSWORD: test
-  script:
-    - npx wait-for-postgres --host localhost --port 5434 --username=${POSTGRES_USER} --password=${POSTGRES_PASSWORD}
-    - yarn workspace @emjpm/knex test

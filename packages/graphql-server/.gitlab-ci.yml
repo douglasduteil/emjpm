@@ -1,0 +1,45 @@
+.graphql_cache: &graphql_cache
+  key: "$CI_COMMIT_REF_SLUG-knex-node_modules"
+  paths:
+    - $CI_PROJECT_DIR/.yarn
+    - node_modules
+    - packages/graphql-server/node_modules
+  policy: pull
+
+#
+
+Install graphql-server:
+  extends: .prepare_stage
+  image: node:12-alpine
+  rules:
+    - changes:
+        - packages/graphql-server/.gitlab-ci.yml
+        - packages/graphql-server/package.json
+        - yarn.lock
+      when: always
+  cache:
+    <<: *graphql_cache
+    policy: pull-push
+  before_script:
+    - find packages -maxdepth 1 -type d -not -name graphql-server | tail -n +2 | xargs rm -rf
+  script:
+    - yarn config set cache-folder $CI_PROJECT_DIR/.yarn
+    - yarn --frozen-lockfile
+  artifacts:
+    expire_in: 30 mins
+    paths:
+      - node_modules
+      - packages/knex/node_modules
+
+#
+
+Lint @emjpm/knex:
+  stage: "Code Quality"
+  dependencies:
+    - Install graphql-server
+  image: node:12-alpine
+  dependencies: []
+  cache:
+    <<: *graphql_cache
+  script:
+    - yarn workspace @emjpm/graphql-server lint
