@@ -19,6 +19,7 @@ Workspace install:
     paths:
       - $CI_PROJECT_DIR/.yarn
   artifacts:
+    expire_in: 30 minutes
     paths:
       - node_modules
       - packages/*/node_modules
