@@ -52,5 +52,6 @@ Build @emjpm/graphql-server:
   image: node:12-alpine
   cache:
     <<: *graphql_cache
+    policy: pull-push
   script:
     - yarn workspace @emjpm/graphql-server build
