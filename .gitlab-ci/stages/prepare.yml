@@ -26,6 +26,11 @@ Install knex:
   script:
     - yarn config set cache-folder $CI_PROJECT_DIR/.yarn
     - yarn --frozen-lockfile
+  artifacts:
+    expire_in: 30 mins
+    paths:
+      - node_modules
+      - packages/knex/node_modules
 
 
 Install graphql-server:
@@ -42,11 +47,16 @@ Install graphql-server:
   script:
     - yarn config set cache-folder $CI_PROJECT_DIR/.yarn
     - yarn --frozen-lockfile
-
+  artifacts:
+    expire_in: 30 mins
+    paths:
+      - node_modules
+      - packages/graphql-server/node_modules
 
 Lint @emjpm/knex:
   stage: "Code Quality"
-  dependencies: []
+  dependencies:
+    - Install knex
   image: node:12-alpine
   needs:
     - Install knex
@@ -57,11 +67,20 @@ Lint @emjpm/knex:
 
 Test @emjpm/knex:
   stage: "Code Quality"
-  dependencies: []
+  dependencies:
+    - Install knex
   image: node:12-alpine
   needs:
     - Install knex
   cache:
     <<: *knex_cache
+  allow_failure: true
+  retry: 2
+  services:
+    - name: $CI_REGISTRY_IMAGE/postgres:$CI_COMMIT_SHA
+      command: ["-p", "5434"]
+  variables:
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: test
   script:
     - yarn workspace @emjpm/knex test
