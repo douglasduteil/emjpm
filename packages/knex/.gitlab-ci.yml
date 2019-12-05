@@ -9,7 +9,7 @@
 #
 
 Install knex:
-  <<: *prepare_stage
+  extends: .prepare_stage
   image: node:12-alpine
   rules:
     - changes:
