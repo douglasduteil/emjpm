@@ -56,6 +56,7 @@ Test @emjpm/app:
     DATABASE_URL: psql://postgres:@localhost/emjpm
     PGHOST: localhost
     PGUSER: postgres
+    TZ: Europe/Paris
   before_script:
     - apk add --update --no-cache postgresql=~11
     - psql --version
