@@ -1,5 +1,5 @@
 .graphql_cache: &graphql_cache
-  key: "$CI_COMMIT_REF_SLUG-knex-node_modules"
+  key: "$CI_COMMIT_REF_SLUG-graphql-server-node_modules"
   paths:
     - $CI_PROJECT_DIR/.yarn
     - node_modules
@@ -36,22 +36,20 @@ Install graphql-server:
 #
 
 Lint @emjpm/graphql-server:
-  stage: "Code Quality"
+  extends: .quality_stage
   needs:
     - Install graphql-server
   image: node:12-alpine
-  dependencies: []
   cache:
     <<: *graphql_cache
   script:
     - yarn workspace @emjpm/graphql-server lint
 
 Build @emjpm/graphql-server:
-  stage: "Code Quality"
+  extends: .quality_stage
   needs:
     - Install graphql-server
   image: node:12-alpine
-  dependencies: []
   cache:
     <<: *graphql_cache
   script:

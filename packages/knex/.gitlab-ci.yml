@@ -34,22 +34,20 @@ Install knex:
 #
 
 Lint @emjpm/knex:
-  stage: "Code Quality"
+  extends: .quality_stage
+  image: node:12-alpine
   needs:
     - Install knex
-  image: node:12-alpine
-  dependencies: []
   cache:
     <<: *knex_cache
   script:
     - yarn workspace @emjpm/knex lint
 
 Test @emjpm/knex:
-  stage: "Code Quality"
+  extends: .quality_stage
+  image: node:12-alpine
   needs:
     - Install knex
-  image: node:12-alpine
-  dependencies: []
   cache:
     <<: *knex_cache
   services:
