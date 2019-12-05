@@ -60,8 +60,6 @@ Lint @emjpm/knex:
   image: node:12-alpine
   needs:
     - Install knex
-  cache:
-    <<: *knex_cache
   script:
     - yarn workspace @emjpm/knex lint
 
@@ -72,8 +70,6 @@ Test @emjpm/knex:
   image: postgres:10-alpine
   needs:
     - Install knex
-  cache:
-    <<: *knex_cache
   allow_failure: true
   retry: 2
   variables:
