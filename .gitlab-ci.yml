@@ -13,6 +13,8 @@ include:
   # - /.gitlab-ci/stages/notify.yml
   # - /.gitlab-ci/stages/deploy.yml
 
+  - /packages/knex/.gitlab-ci.yml
+
 #
 
 stages:
