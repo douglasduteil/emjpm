@@ -58,18 +58,24 @@ Lint @emjpm/knex:
   dependencies:
     - Install knex
   image: node:12-alpine
-  needs:
-    - Install knex
+  dependencies: []
+  cache:
+    <<: *knex_cache
   script:
     - yarn workspace @emjpm/knex lint
 
 Test @emjpm/knex:
   stage: "Code Quality"
-  dependencies:
-    - Install knex
+  rules:
+    - changes:
+        - .gitlab-ci/stages/prepare.yml
+        - packages/knex/package.json
+        - yarn.lock
+      when: on_success
+  dependencies: []
   image: postgres:10-alpine
-  needs:
-    - Install knex
+  cache:
+    <<: *knex_cache
   services:
     - name: postgres:10-alpine
   allow_failure: true
