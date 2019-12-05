@@ -35,7 +35,7 @@ Install graphql-server:
 
 #
 
-Lint @emjpm/knex:
+Lint @emjpm/graphql-server:
   stage: "Code Quality"
   needs:
     - Install graphql-server
@@ -46,7 +46,7 @@ Lint @emjpm/knex:
   script:
     - yarn workspace @emjpm/graphql-server lint
 
-Build @emjpm/knex:
+Build @emjpm/graphql-server:
   stage: "Code Quality"
   needs:
     - Install graphql-server
