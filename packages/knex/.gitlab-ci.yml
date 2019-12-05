@@ -55,15 +55,11 @@ Test @emjpm/knex:
   allow_failure: true
   retry: 2
   variables:
-    POSTGRES_DB: emjpm
-    POSTGRES_USER: postgres
-    POSTGRES_PASSWORD: test
-    DATABASE_URL: psql://postgres:test@localhost/emjpm
+    PGHOST: localhost
+    PGUSER: postgres
   before_script:
     - apk add --update --no-cache postgresql=~11
     - psql --version
-    #
-    - PGHOST=localhost
     #
     - pg_isready -h localhost
   script:
