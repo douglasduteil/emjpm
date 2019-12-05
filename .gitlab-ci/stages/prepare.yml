@@ -78,6 +78,10 @@ Test @emjpm/knex:
     POSTGRES_USER: postgres
     POSTGRES_PASSWORD: test
     DATABASE_URL: psql://localhost:5432/emjpm
+  before_script:
+    - until pg_isready -h ${POSTGRES_HOST} -p 5432;
+        do echo waiting for database; sleep 1;
+      done;
   script:
     - sh -x docker/postgres/postgres-init.sh
     - yarn workspace @emjpm/knex test
