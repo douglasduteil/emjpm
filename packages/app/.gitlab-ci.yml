@@ -36,10 +36,10 @@ Install app:
 Lint @emjpm/app:
   extends: .quality_stage
   image: node:12-alpine
+  dependencies:
+    - Install app
   needs:
     - Install app
-  cache:
-    <<: *app_cache
   script:
     - yarn workspace @emjpm/app lint
 
