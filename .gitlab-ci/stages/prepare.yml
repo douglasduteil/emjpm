@@ -11,7 +11,7 @@
 #
 #
 
-Workspace install:
+install:
   <<: *prepare_stage
   image: node:10
   cache:
