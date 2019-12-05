@@ -75,11 +75,12 @@ Test @emjpm/knex:
   allow_failure: true
   retry: 2
   variables:
+    POSTGRES_DB: emjpm
     POSTGRES_USER: postgres
     POSTGRES_PASSWORD: test
-    DATABASE_URL: psql://localhost:5432/emjpm
+    DATABASE_URL: psql://postgres:test@postgres/emjpm
   before_script:
-    - until pg_isready -h psql://localhost:5432 -p 5432;
+    - until pg_isready -h postgres;
         do echo waiting for database; sleep 1;
       done;
   script:
