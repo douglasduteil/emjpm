@@ -7,36 +7,7 @@
 #
 #
 #
-.knex_cache: &knex_cache
-  key: "$CI_COMMIT_REF_SLUG-knex-node_modules"
-  paths:
-    - $CI_PROJECT_DIR/.yarn
-    - node_modules
-    - packages/knex/node_modules
-  policy: pull
 
-Install knex:
-  <<: *prepare_stage
-  image: node:12-alpine
-  rules:
-    - changes:
-        - .gitlab-ci/stages/prepare.yml
-        - packages/knex/package.json
-        - yarn.lock
-      when: always
-  cache:
-    <<: *knex_cache
-    policy: pull-push
-  before_script:
-    - find packages -maxdepth 1 -type d -not -name knex | tail -n +2 | xargs rm -rf
-  script:
-    - yarn config set cache-folder $CI_PROJECT_DIR/.yarn
-    - yarn --frozen-lockfile
-  artifacts:
-    expire_in: 30 mins
-    paths:
-      - node_modules
-      - packages/knex/node_modules
 
 
 Install graphql-server:
@@ -64,39 +35,3 @@ Install graphql-server:
     paths:
       - node_modules
       - packages/graphql-server/node_modules
-
-#
-
-Lint @emjpm/knex:
-  stage: "Code Quality"
-  dependencies:
-    - Install knex
-  image: node:12-alpine
-  dependencies: []
-  cache:
-    <<: *knex_cache
-  script:
-    - yarn workspace @emjpm/knex lint
-
-Test @emjpm/knex:
-  stage: "Code Quality"
-  dependencies: []
-  image: node:12-alpine
-  cache:
-    <<: *knex_cache
-  services:
-    - name: postgres:10-alpine
-  allow_failure: true
-  retry: 2
-  variables:
-    POSTGRES_DB: emjpm
-    POSTGRES_USER: postgres
-    POSTGRES_PASSWORD: test
-    DATABASE_URL: psql://postgres:test@localhost/emjpm
-  before_script:
-    - apk add --update --no-cache postgresql=~11
-    - pg_isready -h localhost
-    - psql --version
-  script:
-    - sh -x docker/postgres/postgres-init.sh
-    - yarn workspace @emjpm/knex test
