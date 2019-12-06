@@ -1,12 +1,5 @@
 #
 
-.quality_stage: &quality_stage
-  stage: "Code Quality"
-  dependencies: []
-  except:
-    variables:
-      - $PRODUCTION
-
 .master_based_stage: &master_based_stage
   variables:
     GIT_STRATEGY: none
