@@ -80,7 +80,7 @@ Build @emjpm/api:
   artifacts:
     expire_in: 30 mins
     paths:
-      - packages/api/.next
+      - packages/api/dist
 
 #
 
