@@ -9,6 +9,6 @@ COPY package.json /app/
 COPY ./private.pem /app/private.pem
 COPY ./public.pem /app/public.pem
 
-COPY ./api/dist /app/dist
+COPY ./dist /app/dist
 
 ENTRYPOINT [ "yarn", "start" ]
